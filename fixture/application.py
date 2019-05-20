@@ -1,6 +1,6 @@
 from selenium import webdriver
 from fixture.session import SessionHelper
-
+from fixture.project import ProjectHelper
 
 
 class Application:
@@ -18,6 +18,7 @@ class Application:
         self.open_home_page()
         self.wd.implicitly_wait(2)
         self.session = SessionHelper(self)
+        self.project = ProjectHelper(self)
 
 
     def is_valid(self):
