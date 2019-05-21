@@ -3,12 +3,12 @@ from generator.project import *
 
 
 def test_add_project(app):
-    old_project_list = app.project.get_project_list()
+    old_project_list = app.soap.get_project_list("administrator","root")
 
     project = Project(project_name=random_string("project_name", 10), description=random_string("description", 20))
     app.project.create(project)
 
-    new_project_list = app.project.get_project_list()
+    new_project_list = app.soap.get_project_list("administrator","root")
 
     old_project_list.append(project)
 
@@ -16,17 +16,17 @@ def test_add_project(app):
 
 
 def test_delete_project(app):
-    if len(app.project.get_project_list()) == 0:
+    if len(app.soap.get_project_list("administrator","root")) == 0:
         project = Project(project_name=random_string("project_name", 10), description=random_string("description", 20))
         app.project.create(project)
 
-    old_project_list = app.project.get_project_list()
+    old_project_list = app.soap.get_project_list("administrator","root")
 
     project = random.choice(old_project_list)
 
     app.project.delete_project_by_id(project.id)
 
-    new_project_list = app.project.get_project_list()
+    new_project_list = app.soap.get_project_list("administrator","root")
     assert len(old_project_list) - 1 == len(new_project_list)
 
     old_project_list.remove(project)
